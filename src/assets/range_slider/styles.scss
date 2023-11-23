@@ -1,0 +1,170 @@
+.slider {
+  /* CSS for the wrapper element */
+  height: 0.6rem;
+  background-color: rgba(231, 231, 231, 0.8);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1) inset;
+}
+
+.slider .range-slider__range {
+  /* CSS for range */
+  top: 3px;
+  height: 3rem;
+  background: linear-gradient(180deg, #fff 0%, #eee 100%);
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.18);
+  padding-right: 2px;
+  border-radius: 0.4rem;
+  border-top: 1px solid #c7c7c7;
+  border-bottom: 1px solid #c7c7c7;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 3rem;
+}
+
+.slider .range-slider__range span {
+  pointer-events: none;
+  &:last-child {
+    color: #808080;
+    font-weight: 400;
+  }
+}
+
+.slider .range-slider__range[data-active] {
+  /* CSS for active (actively being dragged) range */
+}
+
+.slider .range-slider__thumb {
+  /* CSS for thumbs */
+  top: 3px;
+  width: 20px;
+  height: 30px;
+  box-shadow: none;
+  background: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  &:before {
+    content: ' ';
+    position: absolute;
+    bottom: 0;
+    width: 1.3rem;
+    height: 1rem;
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.09);
+  }
+}
+
+.slider .range-slider__thumb[data-lower] {
+  margin-left: 1px;
+  /* CSS for lower thumb */
+  border-radius: 0.4rem 0 0 0.4rem;
+  background-image: linear-gradient(180deg, #fff 0%, #eee 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' viewBox='0 0 8 14' fill='none'%3E%3Cpath d='M6 7H1M1 7L3 5M1 7L3 9' stroke='%23A1A1A1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M6 1C6 0.447716 6.44772 0 7 0C7.55228 0 8 0.447715 8 1V13C8 13.5523 7.55228 14 7 14C6.44772 14 6 13.5523 6 13V1Z' fill='%23A1A1A1'/%3E%3C/svg%3E");
+  border: 1px solid #c7c7c7;
+  border-right: 0;
+  &:hover:after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' transform='rotate(180)' viewBox='0 0 8 14' fill='none'%3E%3Cpath d='M2 7H7M7 7L5 5M7 7L5 9' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2 1C2 0.447716 1.55228 0 1 0C0.447715 0 0 0.447715 0 1V13C0 13.5523 0.447715 14 1 14C1.55228 14 2 13.5523 2 13V1Z' fill='%23333333'/%3E%3C/svg%3E");
+    background-position: 4px 7px;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' viewBox='0 0 8 14' fill='none'%3E%3Cpath d='M6 7H1M1 7L3 5M1 7L3 9' stroke='%23A1A1A1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M6 1C6 0.447716 6.44772 0 7 0C7.55228 0 8 0.447715 8 1V13C8 13.5523 7.55228 14 7 14C6.44772 14 6 13.5523 6 13V1Z' fill='%23A1A1A1'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 4px 7px;
+  }
+
+  &:before {
+    left: 0;
+  }
+}
+
+.slider .range-slider__thumb[data-upper] {
+  /* CSS for upper thumb */
+  border: 1px solid #c7c7c7;
+  border-left: 0;
+  border-radius: 0 0.4rem 0.4rem 0;
+  background-image: linear-gradient(180deg, #fff 0%, #eee 100%);
+  &:hover:after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' viewBox='0 0 8 14' fill='none'%3E%3Cpath d='M2 7H7M7 7L5 5M7 7L5 9' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2 1C2 0.447716 1.55228 0 1 0C0.447715 0 0 0.447715 0 1V13C0 13.5523 0.447715 14 1 14C1.55228 14 2 13.5523 2 13V1Z' fill='%23333333'/%3E%3C/svg%3E");
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' viewBox='0 0 8 14' fill='none'%3E%3Cpath d='M2 7H7M7 7L5 5M7 7L5 9' stroke='%23A1A1A1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2 1C2 0.447716 1.55228 0 1 0C0.447715 0 0 0.447715 0 1V13C0 13.5523 0.447715 14 1 14C1.55228 14 2 13.5523 2 13V1Z' fill='%23A1A1A1'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 7px 7px;
+  }
+
+  &:before {
+    right: 0;
+  }
+}
+
+.slider .range-slider__thumb .range-slider__tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  background-color: #333;
+  border-radius: 0.4rem;
+  transition: all 0.3s ease-out;
+  font-size: 1.4rem;
+  font-weight: 500;
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -0.8rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 1.2rem;
+    margin-left: 0.1rem;
+    width: 16px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='11' viewBox='0 0 14 11' fill='none'%3E%3Cpath d='M7 11L13.0622 0.5H0.937822L7 11Z' fill='%23333333'/%3E%3C/svg%3E")
+      no-repeat;
+  }
+}
+
+.slider .range-slider__thumb:hover .range-slider__tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.slider .range-slider__thumb[data-active][data-lower] {
+  /* CSS for active (actively being dragged) thumbs */
+}
+
+.slider .range-slider__thumb[data-active][data-upper] {
+  /* CSS for active (actively being dragged) thumbs */
+}
+
+.slider .range-slider__thumb[data-disabled] {
+  /* CSS for disabled thumbs */
+}
+
+.noUi-base,
+.noUi-connects {
+  z-index: 0;
+}
+
+.noUi-connects {
+  overflow: visible;
+  background-color: rgba(231, 231, 231, 0.8);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1) inset;
+}
+
+.noUi-target {
+  height: 0.6rem;
+  background: #e7e7e7;
+}

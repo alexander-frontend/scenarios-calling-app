@@ -1,0 +1,24 @@
+{
+  "name": "calling-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framework7": "^8.3.0",
+    "mitt": "^3.0.1",
+    "nouislider": "^15.7.1",
+    "pinia": "^2.1.7",
+    "range-slider-input": "^2.4.4",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "sass": "^1.69.5",
+    "vite": "^4.4.5"
+  }
+}
