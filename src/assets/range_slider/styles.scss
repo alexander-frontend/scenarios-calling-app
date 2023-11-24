@@ -27,13 +27,9 @@
 .slider .range-slider__range span {
   pointer-events: none;
   &:last-child {
-    color: #808080;
+    color: $color-grey;
     font-weight: 400;
   }
-}
-
-.slider .range-slider__range[data-active] {
-  /* CSS for active (actively being dragged) range */
 }
 
 .slider .range-slider__thumb {
@@ -115,9 +111,9 @@
   top: -30px;
   left: 50%;
   transform: translate(-50%, 0);
-  color: #fff;
+  color: $color-white;
   padding: 0.2rem 0.5rem;
-  background-color: #333;
+  background-color: $color-dark-charcoal;
   border-radius: 0.4rem;
   transition: all 0.3s ease-out;
   font-size: 1.4rem;
@@ -139,18 +135,6 @@
 .slider .range-slider__thumb:hover .range-slider__tooltip {
   visibility: visible;
   opacity: 1;
-}
-
-.slider .range-slider__thumb[data-active][data-lower] {
-  /* CSS for active (actively being dragged) thumbs */
-}
-
-.slider .range-slider__thumb[data-active][data-upper] {
-  /* CSS for active (actively being dragged) thumbs */
-}
-
-.slider .range-slider__thumb[data-disabled] {
-  /* CSS for disabled thumbs */
 }
 
 .noUi-base,

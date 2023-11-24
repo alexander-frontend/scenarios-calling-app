@@ -174,13 +174,13 @@ onMounted(() => {
   align-items: center;
   gap: 10px;
   border-radius: 0.4rem;
-  border: 1px solid #badbcc;
-  background-color: #d9ede4;
+  border: 1px solid $color-jet-stream;
+  background-color: $color-white-ice;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  color: #0a760a;
+  color: $color-green;
 }
 
 .nav-bar {
@@ -191,7 +191,7 @@ onMounted(() => {
   right: -50rem;
   height: 100vh;
   overflow: hidden;
-  background: #fff;
+  background: $color-white;
   opacity: 0;
   transition: all 0.5s ease-out;
   &.opened {
@@ -235,18 +235,18 @@ onMounted(() => {
     .update-btn {
       padding: 0.6rem 1.4rem;
       border-radius: 0.3rem;
-      background-color: #fcd000;
+      background-color: $color-tangerine-yellow;
       text-transform: uppercase;
       font-size: 1.4rem;
       font-weight: 500;
       &:disabled,
       &[disabled] {
-        background-color: #e2e2e2;
+        background-color: $color-gainsboro;
       }
     }
 
     .cancel-btn {
-      color: #900;
+      color: $color-dark-red;
       font-size: 1.4rem;
     }
   }
