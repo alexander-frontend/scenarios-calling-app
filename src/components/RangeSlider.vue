@@ -45,7 +45,7 @@ const getSliderThumb = (slider, el) => {
 const opts = {
   min: 0,
   max: 120,
-  value: [user.value.min || 0, user.value.max || 120],
+  value: [user.value.min, user.value.max],
   onThumbDragStart: () => {},
   onThumbDragEnd: () => {},
   onRangeDragStart: () => {},

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import eventbus from '@/eventbus/index';
 import IconChoose from '@/components/Icons/IconChoose.vue';
 import IconCheckbox from '@/components/Icons/IconCheckbox.vue';
@@ -17,17 +17,8 @@ const isChecked = (name) => {
 };
 
 const toggleSelectNumbers = () => {
-  scenariosStore.selectedUsers.value = users
-    .filter((user) => {
-      return scenariosStore.checkedNumbers.includes(user.number);
-    })
-    .sort((a, b) => a.number - b.number);
-
-  scenariosStore.selectedUsers.value.forEach((user) => {
-    if (!user.min && !user.max) {
-      user.min = 0;
-      user.max = 120;
-    }
+  scenariosStore.selectedUsers.value = users.filter((user) => {
+    return scenariosStore.checkedNumbers.includes(user.number);
   });
 
   isSelectOpened.value = !isSelectOpened.value;
@@ -163,12 +154,11 @@ onMounted(() => {
   flex-shrink: 0;
   flex-basis: 60%;
   margin-bottom: auto;
-  //max-height: 500px;
   overflow-y: auto;
   &_actions {
     margin-bottom: 1rem;
     button {
-      color: #900;
+      color: $color-dark-red;
       font-size: 1.4rem;
     }
   }
@@ -177,16 +167,16 @@ onMounted(() => {
     width: 100%;
     border-radius: 0.4rem;
     padding: 0.4rem 1.6rem 0.3rem 1rem;
-    border: 1px solid #dfd7ca;
-    color: #9f917a;
+    border: 1px solid $color-albescent-white;
+    color: $color-pale-oyster;
     font-size: 1.4rem;
     cursor: pointer;
     span {
-      color: #333;
+      color: $color-dark-charcoal;
     }
 
     &.is-active {
-      outline: 2px solid #fddd45;
+      outline: 2px solid $color-energy-yellow;
     }
   }
 
@@ -203,7 +193,7 @@ onMounted(() => {
     top: 5.6rem;
     width: 100%;
     padding: 1.6rem 1.6rem 0 1.6rem;
-    background-color: #fff;
+    background-color: $color-white;
     box-shadow: 0px 1px 5px 0px rgba(24, 19, 11, 0.18);
   }
 
@@ -225,11 +215,11 @@ onMounted(() => {
     }
 
     &_name {
-      color: #333;
+      color: $color-dark-charcoal;
     }
 
     &_number {
-      color: #808080;
+      color: $color-grey;
     }
 
     &:last-child label {
@@ -242,10 +232,10 @@ onMounted(() => {
   margin-top: 3.2rem;
   padding-bottom: 2rem;
   &-scale {
-    background-color: #fff7d1;
-    border-bottom: 2px solid #dfd7ca;
+    background-color: $color-china-ivory;
+    border-bottom: 2px solid $color-albescent-white;
     padding: 0.6rem 1.2rem 0.6rem 1.2rem;
-    color: #808080;
+    color: $color-grey;
     font-size: 1.4rem;
     font-weight: 500;
   }
@@ -258,7 +248,7 @@ onMounted(() => {
     }
     .choose-btn {
       position: relative;
-      color: #900;
+      color: $color-dark-red;
       font-size: 1.4rem;
       font-weight: 600;
       line-height: 2rem;
@@ -268,7 +258,7 @@ onMounted(() => {
         bottom: 0.2rem;
         left: 0;
         right: 0;
-        border-top: 1px dashed #900;
+        border-top: 1px dashed $color-dark-red;
       }
     }
   }
@@ -283,13 +273,13 @@ onMounted(() => {
         line-height: 1.4rem;
         cursor: pointer;
         svg {
-          color: #808080;
-          fill: #808080;
+          color: $color-grey;
+          fill: $color-grey;
           transition: all 0.3s;
         }
         &:hover svg {
-          color: #c71b2a;
-          fill: #c71b2a;
+          color: $color-fire-engine-red;
+          fill: $color-fire-engine-red;
         }
       }
     }

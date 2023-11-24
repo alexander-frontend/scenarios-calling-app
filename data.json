@@ -1,7 +1,7 @@
 [
-  { "name": "Сергей", "number": "100" },
-  { "name": "Extension 101", "number": "101" },
-  { "name": "Extension 102", "number": "102" },
-  { "name": "Extension 103", "number": "103" },
-  { "name": "Extension 104", "number": "104" }
+  { "name": "Сергей", "number": "100", "min": "0", "max": "120" },
+  { "name": "Extension 101", "number": "101", "min": "0", "max": "120" },
+  { "name": "Extension 102", "number": "102", "min": "0", "max": "120" },
+  { "name": "Extension 103", "number": "103", "min": "0", "max": "120" },
+  { "name": "Extension 104", "number": "104", "min": "0", "max": "120" }
 ]
