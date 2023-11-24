@@ -68,6 +68,7 @@ const scenariosStore = useScenariosStore();
   width: 39.6rem;
   padding: 4.6rem 4.8rem;
   gap: 3.2rem;
+  height: fit-content;
   background: $color-white;
   border-radius: 0.8rem;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08),

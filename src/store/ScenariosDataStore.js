@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+
 const SCENARIOS_STORAGE_KEY = 'scenarios';
 
 export const useScenariosStore = defineStore(SCENARIOS_STORAGE_KEY, {
@@ -10,6 +11,8 @@ export const useScenariosStore = defineStore(SCENARIOS_STORAGE_KEY, {
         ? JSON.parse(localStorage.getItem(SCENARIOS_STORAGE_KEY))
         : []
     ),
+    selectedUsers: ref([]),
+    checkedNumbers: ref([]),
   }),
 
   // getters return data from the data store
@@ -34,12 +37,12 @@ export const useScenariosStore = defineStore(SCENARIOS_STORAGE_KEY, {
       );
     },
     updateScenario(updatedScenario) {
-      const scenario = this.scenarios.find(
-        (scenario) => scenario.id === updatedScenario.id
-      );
+      const scenario = this.scenarios.find((scenario) => {
+        return scenario.id === updatedScenario.id;
+      });
 
       if (scenario) {
-        scenario.value.value = updatedScenario.value.value;
+        scenario.value = updatedScenario.value;
       }
 
       localStorage.setItem(
