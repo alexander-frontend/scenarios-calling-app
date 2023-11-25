@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import eventbus from '@/eventbus/index';
 import IconChoose from '@/components/Icons/IconChoose.vue';
 import IconCheckbox from '@/components/Icons/IconCheckbox.vue';
@@ -12,12 +12,12 @@ const isSelectOpened = ref(false);
 
 const scenariosStore = useScenariosStore();
 
-const isChecked = (name) => {
+const isCheckedNumber = (name) => {
   return scenariosStore.checkedNumbers.includes(name);
 };
 
 const toggleSelectNumbers = () => {
-  scenariosStore.selectedUsers.value = users.filter((user) => {
+  scenariosStore.selectedNumbers.value = users.filter((user) => {
     return scenariosStore.checkedNumbers.includes(user.number);
   });
 
@@ -39,7 +39,7 @@ const clearAllNumbers = () => {
 };
 
 const removeNumber = (i) => {
-  scenariosStore.selectedUsers.value.splice(i, 1);
+  scenariosStore.selectedNumbers.value.splice(i, 1);
   scenariosStore.checkedNumbers.splice(i, 1);
 };
 
@@ -86,7 +86,9 @@ onMounted(() => {
           <div v-for="user in users" class="select-numbers_item">
             <label class="d-flex" :for="user.number">
               <IconCheckbox
-                :variant="isChecked(user.number) ? 'checked' : 'unchecked'"
+                :variant="
+                  isCheckedNumber(user.number) ? 'checked' : 'unchecked'
+                "
               />
 
               <span class="select-numbers_item_name">{{ user.name }}</span>
@@ -113,17 +115,17 @@ onMounted(() => {
 
         <div
           v-if="
-            scenariosStore.selectedUsers.value &&
-            scenariosStore.selectedUsers.value.length
+            scenariosStore.selectedNumbers.value &&
+            scenariosStore.selectedNumbers.value.length
           "
           class="rings-sliders d-flex flex-column"
         >
           <div
-            v-for="(user, i) of scenariosStore.selectedUsers.value"
+            v-for="(scenarioItem, i) of scenariosStore.selectedNumbers.value"
             class="d-flex align-items-center"
             :key="i"
           >
-            <RangeSlider :user="user" />
+            <RangeSlider :scenario-item="scenarioItem" />
 
             <button class="remove-btn" @click="removeNumber(i)">
               <IconRemove />

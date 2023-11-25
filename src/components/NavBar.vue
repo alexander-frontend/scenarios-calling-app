@@ -7,13 +7,16 @@ import IconSuccess from '@/components/Icons/IconSuccess.vue';
 import SelectNumbers from '@/components/SelectNumbers.vue';
 import { useScenariosStore } from '@/store/ScenariosDataStore';
 
+const SHOW_ADD_SCENARIO_DELAY = 3000;
+const CLEAR_SCENARIO_DATA_DELAY = 3000;
+
 const isMenuOpened = ref(false);
 
 const scenariosStore = useScenariosStore();
 
 const editingScenarioId = ref(null);
 
-const scenarioAddShow = ref(false);
+const isShowAddScenario = ref(false);
 
 const closeMenu = () => {
   isMenuOpened.value = false;
@@ -21,39 +24,39 @@ const closeMenu = () => {
   eventbus.emit('close-select');
 
   setTimeout(() => {
-    scenariosStore.selectedUsers = [];
+    scenariosStore.selectedNumbers = [];
     scenariosStore.checkedNumbers = [];
-  }, 500);
+  }, CLEAR_SCENARIO_DATA_DELAY);
 
   editingScenarioId.value = null;
 };
 
 const addScenario = () => {
-  scenariosStore.selectedUsers.value = users.filter((user) => {
+  scenariosStore.selectedNumbers.value = users.filter((user) => {
     return scenariosStore.checkedNumbers.includes(user.number);
   });
 
   const newScenario = {
     id: window.crypto.getRandomValues(new Uint32Array(1))[0].toString(16),
-    value: scenariosStore.selectedUsers.value,
+    value: scenariosStore.selectedNumbers.value,
   };
 
   scenariosStore.addScenario(newScenario);
 
   closeMenu();
 
-  scenarioAddShow.value = !scenarioAddShow.value;
+  isShowAddScenario.value = !isShowAddScenario.value;
 
   setTimeout(() => {
-    scenarioAddShow.value = !scenarioAddShow.value;
-  }, 3000);
+    isShowAddScenario.value = !isShowAddScenario.value;
+  }, SHOW_ADD_SCENARIO_DELAY);
 };
 
 const updateScenario = () => {
-  if (editingScenarioId.value === scenariosStore.selectedUsers.id) {
+  if (editingScenarioId.value === scenariosStore.selectedNumbers.id) {
     const editedScenario = {
-      id: scenariosStore.selectedUsers.id,
-      value: scenariosStore.selectedUsers.value,
+      id: scenariosStore.selectedNumbers.id,
+      value: scenariosStore.selectedNumbers.value,
     };
 
     scenariosStore.updateScenario(editedScenario);
@@ -78,10 +81,10 @@ onMounted(() => {
 
     editingScenarioId.value = scenario.id;
 
-    scenariosStore.selectedUsers = JSON.parse(JSON.stringify(scenario));
+    scenariosStore.selectedNumbers = JSON.parse(JSON.stringify(scenario));
     scenariosStore.checkedNumbers = [];
 
-    scenariosStore.selectedUsers.value.forEach((user) => {
+    scenariosStore.selectedNumbers.value.forEach((user) => {
       scenariosStore.checkedNumbers.push(user.number);
     });
   });
@@ -117,7 +120,7 @@ onMounted(() => {
           @click="addScenario"
           class="create-btn"
           :disabled="scenariosStore.checkedNumbers.length == 0"
-          v-if="editingScenarioId !== scenariosStore.selectedUsers.id"
+          v-if="editingScenarioId !== scenariosStore.selectedNumbers.id"
         >
           Создать
         </button>
@@ -135,7 +138,7 @@ onMounted(() => {
   </section>
 
   <Transition class="scenario-add-show" name="fade-slide" appear>
-    <div v-show="scenarioAddShow">
+    <div v-show="isShowAddScenario">
       <IconSuccess />
       <div>Сценарий добавлен</div>
     </div>

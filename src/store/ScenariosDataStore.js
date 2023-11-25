@@ -11,7 +11,7 @@ export const useScenariosStore = defineStore(SCENARIOS_STORAGE_KEY, {
         ? JSON.parse(localStorage.getItem(SCENARIOS_STORAGE_KEY))
         : []
     ),
-    selectedUsers: ref([]),
+    selectedNumbers: ref([]),
     checkedNumbers: ref([]),
   }),
 

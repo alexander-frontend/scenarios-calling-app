@@ -9,16 +9,16 @@ import 'range-slider-input/dist/style.css';
 import '../assets/range_slider/styles.scss';
 
 const props = defineProps({
-  user: { type: Object },
+  scenarioItem: { type: Object },
 });
 
 const slider = ref(null);
 let sliderObj = ref(null);
 
-const { user } = toRefs(props);
+const { scenarioItem } = toRefs(props);
 
-watch(user, () => {
-  sliderObj.value([user.value.min, user.value.max]);
+watch(scenarioItem, () => {
+  sliderObj.value([scenarioItem.value.min, scenarioItem.value.max]);
 
   setSliderRangeText(slider);
 });
@@ -34,7 +34,7 @@ const setSliderRangeText = (slider) => {
     .querySelector('.range-slider__range')
     .insertAdjacentHTML(
       'beforeend',
-      `<span>${user.value.number}</span> <span>(${user.value.name})</span>`
+      `<span>${scenarioItem.value.number}</span> <span>(${scenarioItem.value.name})</span>`
     );
 };
 
@@ -45,7 +45,7 @@ const getSliderThumb = (slider, el) => {
 const opts = {
   min: 0,
   max: 120,
-  value: [user.value.min, user.value.max],
+  value: [scenarioItem.value.min, scenarioItem.value.max],
   onThumbDragStart: () => {},
   onThumbDragEnd: () => {},
   onRangeDragStart: () => {},
@@ -81,7 +81,7 @@ const initSlider = () => {
         sliderObj.value()[i] + 'с';
     }
 
-    [user.value.min, user.value.max] = sliderObj.value();
+    [scenarioItem.value.min, scenarioItem.value.max] = sliderObj.value();
   };
 };
 </script>
