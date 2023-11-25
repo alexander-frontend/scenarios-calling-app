@@ -8,7 +8,7 @@ import SelectNumbers from '@/components/SelectNumbers.vue';
 import { useScenariosStore } from '@/store/ScenariosDataStore';
 
 const SHOW_ADD_SCENARIO_DELAY = 3000;
-const CLEAR_SCENARIO_DATA_DELAY = 3000;
+const CLEAR_SCENARIO_DATA_DELAY = 500;
 
 const isMenuOpened = ref(false);
 
