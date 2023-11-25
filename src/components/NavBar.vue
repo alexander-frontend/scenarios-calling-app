@@ -29,11 +29,9 @@ const closeMenu = () => {
 };
 
 const addScenario = () => {
-  scenariosStore.selectedUsers.value = users
-    .filter((user) => {
-      return scenariosStore.checkedNumbers.includes(user.number);
-    })
-    .sort((a, b) => a.number - b.number);
+  scenariosStore.selectedUsers.value = users.filter((user) => {
+    return scenariosStore.checkedNumbers.includes(user.number);
+  });
 
   const newScenario = {
     id: window.crypto.getRandomValues(new Uint32Array(1))[0].toString(16),
