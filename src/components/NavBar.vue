@@ -6,21 +6,25 @@ import IconClose from '@/components/Icons/IconClose.vue';
 import IconSuccess from '@/components/Icons/IconSuccess.vue';
 import SelectNumbers from '@/components/SelectNumbers.vue';
 import { useScenariosStore } from '@/store/ScenariosDataStore';
+import ModalPopup from '@/components/ModalPopup.vue';
 
 const SHOW_ADD_SCENARIO_DELAY = 3000;
 const CLEAR_SCENARIO_DATA_DELAY = 500;
+
+const modalTitle = 'Остались несохраненные изменения';
+const modalDescription = 'Вы уверены, что хотите выйти, сбросив все изменения?';
 
 const isMenuOpened = ref(false);
 
 const scenariosStore = useScenariosStore();
 
-const editingScenarioId = ref(null);
+const editingScenario = ref(null);
 
 const isShowAddScenario = ref(false);
 
-const closeMenu = () => {
-  isMenuOpened.value = false;
+const modal = ref(null);
 
+const closeMenu = () => {
   eventbus.emit('close-select');
 
   setTimeout(() => {
@@ -28,7 +32,29 @@ const closeMenu = () => {
     scenariosStore.checkedNumbers = [];
   }, CLEAR_SCENARIO_DATA_DELAY);
 
-  editingScenarioId.value = null;
+  editingScenario.value = null;
+
+  isMenuOpened.value = false;
+};
+
+const checkCloseMenu = () => {
+  if (
+    editingScenario.value &&
+    JSON.stringify(editingScenario.value.value) !==
+      JSON.stringify(scenariosStore.selectedNumbers.value)
+  ) {
+    modal.value.openModal().then(
+      () => {
+        closeMenu();
+        return;
+      },
+      () => {
+        return;
+      }
+    );
+  } else {
+    closeMenu();
+  }
 };
 
 const addScenario = () => {
@@ -43,7 +69,7 @@ const addScenario = () => {
 
   scenariosStore.addScenario(newScenario);
 
-  closeMenu();
+  checkCloseMenu();
 
   isShowAddScenario.value = !isShowAddScenario.value;
 
@@ -53,7 +79,7 @@ const addScenario = () => {
 };
 
 const updateScenario = () => {
-  if (editingScenarioId.value === scenariosStore.selectedNumbers.id) {
+  if (editingScenario.value && editingScenario.value.id) {
     const editedScenario = {
       id: scenariosStore.selectedNumbers.id,
       value: scenariosStore.selectedNumbers.value,
@@ -61,9 +87,7 @@ const updateScenario = () => {
 
     scenariosStore.updateScenario(editedScenario);
 
-    editingScenarioId.value = null;
-
-    closeMenu();
+    checkCloseMenu();
   }
 };
 
@@ -79,7 +103,7 @@ onMounted(() => {
   eventbus.on('update-scenario', (scenario) => {
     openMenu();
 
-    editingScenarioId.value = scenario.id;
+    editingScenario.value = scenario;
 
     scenariosStore.selectedNumbers = JSON.parse(JSON.stringify(scenario));
     scenariosStore.checkedNumbers = [];
@@ -95,7 +119,7 @@ onMounted(() => {
   <div
     class="overlay"
     :class="{ opened: isMenuOpened == true }"
-    @click="closeMenu"
+    @click="checkCloseMenu"
   ></div>
   <section
     class="nav-bar d-flex flex-column"
@@ -103,12 +127,14 @@ onMounted(() => {
   >
     <div class="d-flex nav-bar_wrap flex-column justify-content-space-between">
       <div class="nav-bar_title">
-        <button class="close-btn" @click="closeMenu">
+        <button class="close-btn" @click="checkCloseMenu">
           <IconClose />
         </button>
 
         <p class="nav-bar_wrap_desc">
-          <template v-if="editingScenarioId"> Редактировать сценарий </template>
+          <template v-if="editingScenario && editingScenario.id">
+            Редактировать сценарий
+          </template>
           <template v-else> Создать сценарий </template>
         </p>
       </div>
@@ -117,22 +143,22 @@ onMounted(() => {
 
       <div class="nav-bar_footer d-flex">
         <button
-          @click="addScenario"
-          class="create-btn"
-          :disabled="scenariosStore.checkedNumbers.length == 0"
-          v-if="editingScenarioId !== scenariosStore.selectedNumbers.id"
-        >
-          Создать
-        </button>
-        <button
-          :disabled="scenariosStore.checkedNumbers.length == 0"
           @click="updateScenario"
           class="update-btn"
-          v-else
+          :disabled="scenariosStore.checkedNumbers.length == 0"
+          v-if="editingScenario && editingScenario.id"
         >
           Сохранить
         </button>
-        <button class="cancel-btn" @click="closeMenu">Отменить</button>
+        <button
+          :disabled="scenariosStore.checkedNumbers.length == 0"
+          @click="addScenario"
+          class="create-btn"
+          v-else
+        >
+          Создать
+        </button>
+        <button class="cancel-btn" @click="checkCloseMenu">Отменить</button>
       </div>
     </div>
   </section>
@@ -143,6 +169,12 @@ onMounted(() => {
       <div>Сценарий добавлен</div>
     </div>
   </Transition>
+
+  <ModalPopup
+    :cancel="true"
+    :message="{ title: modalTitle, description: modalDescription }"
+    ref="modal"
+  />
 </template>
 
 <style lang="scss" scoped>
