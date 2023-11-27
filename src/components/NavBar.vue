@@ -239,6 +239,9 @@ onMounted(() => {
 
   &_title {
     padding: 2.6rem 2.6rem 0 2.6rem;
+    @media (max-width: 480px) {
+      padding: 3rem 2rem 0 2rem;
+    }
     label {
       margin-bottom: 0.2rem;
       font-size: 1.4rem;

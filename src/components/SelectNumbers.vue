@@ -157,6 +157,9 @@ onMounted(() => {
   flex-basis: 60%;
   margin-bottom: auto;
   overflow-y: auto;
+  @media (max-width: 480px) {
+    padding: 0 2rem;
+  }
   &_actions {
     margin-bottom: 1rem;
     button {

@@ -1,7 +1,3 @@
-<template>
-  <div :class="`slider range-slider`" ref="slider"></div>
-</template>
-
 <script setup>
 import { ref, toRefs, watch, onMounted } from 'vue';
 import rangeSlider from 'range-slider-input';
@@ -85,5 +81,9 @@ const initSlider = () => {
   };
 };
 </script>
+
+<template>
+  <div :class="`slider range-slider`" ref="slider"></div>
+</template>
 
 <style scoped lang="scss"></style>
