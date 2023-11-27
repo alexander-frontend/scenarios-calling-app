@@ -235,7 +235,7 @@ onMounted(() => {
     transition: all 0.5s ease-out;
     @media (max-width: 480px) {
       width: 100%;
-      padding-bottom: 5rem;
+      padding-bottom: 10rem;
     }
   }
 
