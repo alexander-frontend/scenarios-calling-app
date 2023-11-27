@@ -226,6 +226,7 @@ onMounted(() => {
   overflow: hidden;
   background: $color-white;
   opacity: 0;
+  z-index: 9999;
   transition: all 0.5s ease-out;
   &.opened {
     width: 50rem;
